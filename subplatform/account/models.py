@@ -11,6 +11,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
+    
+    is_software_engineer = models.BooleanField(default=False, verbose_name='Are you a Software Engineer?')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
