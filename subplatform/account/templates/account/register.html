@@ -1,19 +1,30 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>register</title>
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/lux/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/styles.css' %}">
+
 </head>
 
 <body>
-    <h1>Register</h1>
-    <form method="POST" autocomplete="off">
-        {% csrf_token %}
-        {{ RegisterForm.as_p }}
-        <button type="submit">Register</button>
-    </form>
+    <br>
+    <div class="container bg-white shadow-md p-5 form-layout">
+        <h1>Register</h1>
+        <form method="POST" autocomplete="off">
+            {% csrf_token %}
+            {{ RegisterForm | crispy }}
+            <br>
+            <input type="submit" value="Register" class="btn btn-info" />
+        </form>
+    </div>
+    <br>
 
 </body>
 
