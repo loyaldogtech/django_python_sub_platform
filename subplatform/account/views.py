@@ -41,12 +41,12 @@ def my_login(request):
             if user is not None and user.is_software_engineer == True:
 
                 login(request, user)
-                return HttpResponse('Welcome Software Engineer')
+                return redirect('software_engineer-dashboard')
             
             if user is not None and user.is_software_engineer == False:
 
                 login(request, user)
-                return HttpResponse('Welcome Client')
+                return redirect('client-dashboard')
             
     context = {'LoginForm': form}
     return render(request, 'account/my_login.html', context)
