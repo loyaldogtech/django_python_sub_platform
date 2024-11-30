@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from . forms import ArticleForm
 from django.http import HttpResponse
+from . models import Article
 
 @login_required(login_url='my_login')
 def software_engineer_dashboard(request):
@@ -20,7 +21,30 @@ def create_article(request):
             article = form.save(commit=False)
             article.user = request.user
             article.save()
-            return HttpResponse('Article created successfully')
+            return redirect('my-articles')
 
     context = {'CreateArticleForm': form}
     return render(request, 'software_engineer/create-article.html', context)
+
+@login_required(login_url='my_login')
+def my_articles(request):
+    
+    current_user = request.user.id
+    article = Article.objects.filter(user=current_user).order_by('-date_posted')
+    context = {'AllArticles': article}
+    return render(request, 'software_engineer/my-articles.html', context)
+
+@login_required(login_url='my_login')
+def update_article(request, pk):
+
+    article = Article.objects.get(id=pk)
+    form = ArticleForm(instance=article)
+
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, instance=article)
+        if form.is_valid():
+            form.save()
+            return redirect('my-articles')
+
+    context = {'UpdateArticleForm': form}
+    return render(request, 'software_engineer/update-article.html', context)

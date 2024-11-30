@@ -1,0 +1,28 @@
+{% extends 'software_engineer/navbar.html' %}
+
+{% block content %}
+
+<br>
+
+{% for article in AllArticles %}
+
+<div class="container bg-white shadow-md p-5 form-layout">
+
+    <h3>{{ article.title }}</h3>
+    {{ article.content }}
+    <br><br>
+    {{ article.date_posted }}
+    <br><br>
+
+    <a href="{% url 'update-article' article.id %}" class="btn btn-info">Update</a>
+
+</div>
+
+<br>
+
+
+
+
+{% endfor %}
+
+{% endblock %}
