@@ -1,0 +1,33 @@
+{% extends 'software_engineer/navbar.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>create-article</title>
+</head>
+
+<body>
+    <br>
+    <div class="container bg-white shadow-md p-5 form-layout">
+        <h3>Create Article</h3>
+        <p>You may create an article below:</p>
+        <br>
+        <form method="POST" autocomplete="off">
+            {% csrf_token %}
+            {{ CreateArticleForm|crispy }}
+            <input type="submit" value="Create Article" class="btn btn-info" />
+        </form>
+    </div>
+    <br>
+
+    {% endblock %}
+</body>
+
+
+</html>
