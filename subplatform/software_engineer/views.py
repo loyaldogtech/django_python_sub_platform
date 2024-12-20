@@ -37,7 +37,13 @@ def my_articles(request):
 @login_required(login_url='my_login')
 def update_article(request, pk):
 
-    article = Article.objects.get(id=pk)
+    try:
+
+        article = Article.objects.get(id=pk, user=request.user)
+
+    except:
+        return redirect('my-articles')
+    
     form = ArticleForm(instance=article)
 
     if request.method == 'POST':
