@@ -21,12 +21,14 @@
         <form method="POST" autocomplete="off">
             {% csrf_token %}
             {{ CreateArticleForm|crispy }}
-            <input type="submit" value="Create Article" class="btn btn-info" />
+            <button type="submit" class="btn btn-info" style="border-radius: 7px;">Create Article</button>
         </form>
     </div>
     <br>
 
     {% endblock %}
+
+
 </body>
 
 

@@ -10,15 +10,23 @@
 
     <h3>{{ article.title }}</h3>
     {{ article.content }}
-    <br><br>
-    {{ article.date_posted }}
+
     <br><br>
 
-    <a href="{% url 'update-article' article.id %}" class="btn btn-info">Update</a>
+    {{ article.date_posted }}
+
+    <br><br>
+
+    <a href="{% url 'update-article' article.id %}" class="btn btn-info" style="border-radius: 7px;">Update Article</a>
+
+
+    <a href="{% url 'delete-article' article.id %}" class="btn btn-danger"
+        style="float: right; border-radius: 7px;">Delete Article</a>
 
 </div>
 
 <br>
+
 
 
 

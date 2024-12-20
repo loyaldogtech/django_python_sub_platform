@@ -1,5 +1,4 @@
 {% extends 'software_engineer/navbar.html' %}
-{% load crispy_forms_tags %}
 {% block content %}
 
 
@@ -9,24 +8,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>update-article</title>
+    <title>create-article</title>
 </head>
 
 <body>
     <br>
     <div class="container bg-white shadow-md p-5 form-layout">
-        <h3>Update Article</h3>
-        <p>You may update your article below:</p>
+        <h3>Delete Article</h3>
+        <p>You may delete your article below:</p>
+
         <br>
+
         <form method="POST" autocomplete="off">
+
             {% csrf_token %}
-            {{ UpdateArticleForm|crispy }}
-            <button type="submit" class="btn btn-info" style="border-radius: 7px;">Update Article</button>
+
+            <button type="submit" class="btn btn-danger" style="border-radius: 7px;">Delete Article</button>
+
         </form>
+
+        <br>
+
+        <a href="{% url 'my-articles' %}">Return to articles</a>
+
     </div>
+
     <br>
 
     {% endblock %}
+
 </body>
 
 
