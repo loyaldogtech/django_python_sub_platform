@@ -1,0 +1,33 @@
+{% extends 'software_engineer/navbar.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>update-article</title>
+</head>
+
+<body>
+    <br>
+    <div class="container bg-white shadow-md p-5 form-layout">
+        <h3>Update account details</h3>
+        <p>You may update your account details below:</p>
+        <br>
+        <form method="POST" autocomplete="off">
+            {% csrf_token %}
+            {{UpdateUserForm|crispy}}
+            <button type="submit" class="btn btn-info" style="border-radius: 7px;">Update details</button>
+        </form>
+    </div>
+    <br>
+
+    {% endblock %}
+</body>
+
+
+</html>
