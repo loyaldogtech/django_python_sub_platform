@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from . forms import ArticleForm, UpdateUserForm
 from django.http import HttpResponse
 from . models import Article
+from account.models import CustomUser
 
 @login_required(login_url='my_login')
 def software_engineer_dashboard(request):
@@ -30,7 +31,7 @@ def create_article(request):
 def my_articles(request):
     
     current_user = request.user.id
-    article = Article.objects.filter(user=current_user).order_by('-date_posted')
+    article = Article.objects.filter(user=current_user).order_by('date_posted')
     context = {'AllArticles': article}
     return render(request, 'software_engineer/my-articles.html', context)
 
@@ -82,4 +83,13 @@ def account_management(request):
     context = {'UpdateUserForm': form}
     return render(request, 'software_engineer/account-management.html', context)
 
+@login_required(login_url='my_login')
+def delete_account(request):
+
+    if request.method == 'POST':
+       deleteUser = CustomUser.objects.get(id=request.user.id)
+       deleteUser.delete()
+       return redirect('my_login')
+    
+    return render(request, 'software_engineer/delete-account.html')
         

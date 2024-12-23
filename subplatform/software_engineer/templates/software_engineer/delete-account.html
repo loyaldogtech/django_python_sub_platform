@@ -1,0 +1,43 @@
+{% extends 'software_engineer/navbar.html' %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>create-article</title>
+</head>
+
+<body>
+    <br>
+    <div class="container bg-white shadow-md p-5 form-layout">
+        <h3>Delete Account</h3>
+        <p>You may delete your account below:</p>
+
+        <br>
+
+        <form method="POST" autocomplete="off">
+
+            {% csrf_token %}
+
+            <button type="submit" class="btn btn-danger" style="border-radius: 7px;">Delete Account</button>
+
+        </form>
+
+        <br>
+
+        <a href="{% url 'software_engineer-dashboard' %}">Return to dashboard</a>
+
+    </div>
+
+    <br>
+
+    {% endblock %}
+
+</body>
+
+
+</html>

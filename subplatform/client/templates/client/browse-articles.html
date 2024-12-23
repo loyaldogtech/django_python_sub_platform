@@ -1,10 +1,10 @@
-{% extends 'software_engineer/navbar.html' %}
+{% extends 'client/navbar.html' %}
 
 {% block content %}
 
 <br>
 
-{% for article in AllArticles %}
+{% for article in AllClientArticles %}
 
 <div class="container bg-white shadow-md p-5 form-layout">
 
@@ -25,11 +25,6 @@
 
     <hr>
 
-    <a href="{% url 'update-article' article.id %}" class="btn btn-info" style="border-radius: 7px;">Update Article</a>
-
-
-    <a href="{% url 'delete-article' article.id %}" class="btn btn-danger"
-        style="float: right; border-radius: 7px;">Delete Article</a>
 
 </div>
 
