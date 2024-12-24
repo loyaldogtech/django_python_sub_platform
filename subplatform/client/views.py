@@ -51,8 +51,17 @@ def browse_articles(request):
 @login_required(login_url='my_login')
 def subscription_locked(request):
 
-        return render(request, 'client/subscription-locked.html')
+    return render(request, 'client/subscription-locked.html')
 
+@login_required(login_url='my_login')
+def subscription_plans(request):
+
+    return render(request, 'client/subscription-plans.html')
+
+@login_required(login_url='my_login')
+def account_management(request):
+
+    return render(request, 'client/account-management.html')
 
        
 

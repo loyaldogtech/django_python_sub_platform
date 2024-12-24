@@ -1,29 +1,20 @@
 {% extends 'client/navbar.html' %}
 {% block content %}
 
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Client dashboard</title>
 </head>
 
 <body>
     <br>
-    <div class="container bg-light shadow-md p-5 form-layout text-center">
+    <div class="container bg-white shadow-md p-5 form-layout text-center">
 
-        <h5>💻 Welcome, {{ user.first_name }}</h5>
-
-    </div>
-
-    <br>
-
-    <div class="container bg-light shadow-md p-5 form-layout text-center">
-
-        <h5>Subscription Status: </h5>
-        <p>{{SubPlan}}</p>
+        <h5>Browse subscription plans</h5>
 
         <hr>
 
@@ -32,8 +23,10 @@
             &nbsp; View subscription plans</a>
 
     </div>
+
+
+    {% endblock %}
 </body>
 
-{% endblock %}
 
 </html>
