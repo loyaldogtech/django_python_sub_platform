@@ -1,4 +1,5 @@
 {% extends 'client/navbar.html' %}
+
 {% block content %}
 
 <!DOCTYPE html>
@@ -53,7 +54,11 @@
                         });
                     },
                     onApprove: function (data, actions) {
-                        alert(data.subscriptionID); // You can add optional success message for the subscriber here
+
+                        const current_url = '/client/create-subscription/' + data.subscriptionID + '/Standard';
+
+                        window.open(current_url, '_self');
+
                     }
                 }).render('#paypal-button-container-P-62M601957A983381JM5VDPQQ'); // Renders the PayPal button
             </script>
@@ -89,9 +94,14 @@
                         });
                     },
                     onApprove: function (data, actions) {
-                        alert(data.subscriptionID); // You can add optional success message for the subscriber here
+
+                        const current_url = '/client/create-subscription/' + data.subscriptionID + '/Premium';
+
+                        window.open(current_url, '_self');
                     }
+
                 }).render('#paypal-button-container-P-39N06815UF874125LM5VEV2I'); // Renders the PayPal button
+
             </script>
 
         </div>

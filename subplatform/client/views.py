@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from software_engineer.models import Article
 from . models import Subscription
+from account.models import CustomUser
 
 @login_required(login_url='my_login')
 def client_dashboard(request):
@@ -62,6 +63,28 @@ def subscription_plans(request):
 def account_management(request):
 
     return render(request, 'client/account-management.html')
+
+@login_required(login_url='my_login')
+def create_subscription(request, subID, plan):
+
+    custom_user = CustomUser.objects.get(email=request.user.email)
+    firstName = custom_user.first_name
+    lastName = custom_user.last_name
+    fullName = firstName + ' ' + lastName
+    selected_sub_plan = plan
+
+    if selected_sub_plan == 'Standard':
+        amount = "4.99"
+    elif selected_sub_plan == 'Premium':
+        amount = "9.99"
+
+    subscription = Subscription.objects.create(subscriber_name=fullName, subscription_plan=selected_sub_plan, subscription_cost=amount, user=request.user, paypal_subscription_id=subID, is_active=True)
+
+    context = {'SubscriptionPlan': selected_sub_plan}
+    return render(request, 'client/create-subscription.html', context)
+
+
+    
 
        
 
