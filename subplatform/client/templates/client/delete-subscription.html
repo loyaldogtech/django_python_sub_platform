@@ -1,0 +1,42 @@
+{% extends 'client/navbar.html' %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <br>
+    <div class="container bg-light shadow-md p-5 form-layout text-center">
+
+        <h5>Subscription Cancelled!</h5>
+
+        <br>
+
+        <h1>❌</h1>
+
+        <br>
+
+        <p>
+
+            Your subscription has been cancelled successfully.
+
+            You are no longer eligible for the perks that are associated with this plan.
+
+        </p>
+
+        <a class="btn btn-info" type="button" href="{% url 'client-dashboard' %}"> <i class="fa fa-angle-right"
+                aria-hidden="true"></i>
+            &nbsp; Return to Dashboard</a>
+
+    </div>
+
+</body>
+
+{% endblock %}
+
+</html>

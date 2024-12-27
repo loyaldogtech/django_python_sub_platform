@@ -9,6 +9,9 @@ urlpatterns = [
     path('subscription-locked', views.subscription_locked, name='subscription-locked'),
     path('subscription-plans', views.subscription_plans, name='subscription-plans'),
     path('account-management-client', views.account_management, name='account-management-client'),
-    path('create-subscription/<subID>/<plan>', views.create_subscription, name='create-subscription'),    
+    
+    # Subscription urls
+    path('create-subscription/<subID>/<plan>', views.create_subscription, name='create-subscription'),
+    path('delete-subscription/<subID>', views.delete_subscription, name='delete-subscription'),
 
 ]

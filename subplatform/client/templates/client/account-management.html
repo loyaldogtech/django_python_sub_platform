@@ -12,11 +12,16 @@
 
 <body>
     <br>
+
+    <!-- Browse Subscription Plans -->
+
     <div class="container bg-white shadow-md p-5 form-layout text-center">
 
         <h5>Browse subscription plans</h5>
 
         <hr>
+
+        <p>You may browse our subscription plans here: </p>
 
         <a class="btn btn-info" type="button" href="{% url 'subscription-plans' %}"> <i class="fa fa-angle-right"
                 aria-hidden="true"></i>
@@ -24,8 +29,38 @@
 
     </div>
 
+    <br>
+
+    <!-- Cancel/Delete Subscription -->
+
+    {% if SubscriptionID %}
+
+    <div class="container bg-white shadow-md p-5 form-layout text-center">
+
+        <h5>Cancel your subscription</h5>
+
+        <hr>
+
+        <p>You may cancel your subscription here: </p>
+
+        <br>
+
+        <a class="btn btn-danger" type="button" href="{% url 'delete-subscription' SubscriptionID %}"> <i
+                class="fa fa-angle-right" aria-hidden="true"></i>
+            &nbsp; Cancel Subscription</a>
+
+    </div>
+
+    {% else %}
+
+    <!-- No Subscription -->
+
+    {% endif %}
+
+    <br>
 
     {% endblock %}
+
 </body>
 
 
