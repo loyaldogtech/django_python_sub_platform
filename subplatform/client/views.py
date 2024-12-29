@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from software_engineer.models import Article
 from . models import Subscription
@@ -65,7 +66,7 @@ def account_management(request):
 
     try:
 
-        subDetails = Subscription.objects.get(user=request.user.id)
+        subDetails = Subscription.objects.get(user=request.user)
         subscription_id = subDetails.paypal_subscription_id
         context = {'SubscriptionID': subscription_id}
 
@@ -74,17 +75,6 @@ def account_management(request):
     except:
 
         return render(request, 'client/account-management.html')
-
-
-
-
-
-
-
-
-
-
-
 
 @login_required(login_url='my_login')
 def create_subscription(request, subID, plan):
@@ -117,6 +107,67 @@ def delete_subscription(request, subID):
     subscription.delete()
 
     return render(request, 'client/delete-subscription.html')
+
+@login_required(login_url='my_login')
+def update_subscription(request, subID):
+    
+    access_token = get_access_token()
+
+    # approve_link = Hateoas link from PayPal
+    approve_link = update_subscription_paypal(access_token, subID)
+
+    if approve_link:
+
+        return redirect(approve_link)
+
+    else:
+
+        return HttpResponse("Unable to obtain update link")
+
+    
+@login_required(login_url='my_login')
+def paypal_update_sub_confirmed(request):
+
+    try:
+
+        subDetails = Subscription.objects.get(user=request.user)
+
+        subscriptionID = subDetails.paypal_subscription_id
+
+        context = {'SubscriptionID': subscriptionID}
+
+        return render(request, 'client/paypal-update-sub-confirmed.html', context)
+    
+    except:
+
+        return render(request, 'client/paypal-update-sub-confirmed.html')
+    
+@login_required(login_url='my_login')
+def django_update_sub_confirmed(request, subID):
+
+    access_token = get_access_token()
+    current_plan_id = get_current_subscription(access_token, subID)
+
+    if current_plan_id == "P-5UT79485E39960225M5YJQEA": # Standard
+
+       new_plan_name = "Standard"
+       new_cost = "4.99"
+
+       Subscription.objects.filter(paypal_subscription_id=subID).update(subscription_plan=new_plan_name, subscription_cost=new_cost)
+
+    elif current_plan_id == "P-9ST26449M6579211PM5YJRFI": # Premium
+
+       new_plan_name = "Premium"
+       new_cost = "9.99"
+
+       Subscription.objects.filter(paypal_subscription_id=subID).update(subscription_plan=new_plan_name, subscription_cost=new_cost)
+
+    return render(request, 'client/django-update-sub-confirmed.html')
+
+
+    
+    
+    
 
 
 

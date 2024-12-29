@@ -23,6 +23,8 @@
 
         <p>You may browse our subscription plans here: </p>
 
+        <br>
+
         <a class="btn btn-info" type="button" href="{% url 'subscription-plans' %}"> <i class="fa fa-angle-right"
                 aria-hidden="true"></i>
             &nbsp; View subscription plans</a>
@@ -48,6 +50,26 @@
         <a class="btn btn-danger" type="button" href="{% url 'delete-subscription' SubscriptionID %}"> <i
                 class="fa fa-angle-right" aria-hidden="true"></i>
             &nbsp; Cancel Subscription</a>
+
+    </div>
+
+    <!-- Update or revise your subscription -->
+
+    <br>
+
+    <div class="container bg-white shadow-md p-5 form-layout text-center">
+
+        <h5>Update your subscription</h5>
+
+        <hr>
+
+        <p>You may update your subscription here: </p>
+
+        <br>
+
+        <a class="btn btn-success" type="button" href="{% url 'update-subscription' SubscriptionID %}"> <i
+                class="fa fa-angle-right" aria-hidden="true"></i>
+            &nbsp; Update Subscription</a>
 
     </div>
 
