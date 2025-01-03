@@ -15,6 +15,12 @@
 
     <!-- Browse Subscription Plans -->
 
+    {% if SubscriptionID %}
+
+    <!-- if there is a subscriptionID then display no subscription plans (link) -->
+
+    {% else %}
+
     <div class="container bg-white shadow-md p-5 form-layout text-center">
 
         <h5>Browse subscription plans</h5>
@@ -30,6 +36,8 @@
             &nbsp; View subscription plans</a>
 
     </div>
+
+    {% endif %}
 
     <br>
 
@@ -47,9 +55,11 @@
 
         <br>
 
-        <a class="btn btn-danger" type="button" href="{% url 'delete-subscription' SubscriptionID %}"> <i
-                class="fa fa-angle-right" aria-hidden="true"></i>
-            &nbsp; Cancel Subscription</a>
+        <a id="cancelButton" class="btn btn-danger d-flex align-items-center justify-content-center" type="button"
+        href="{% url 'delete-subscription' SubscriptionID %}">
+        <span class="spinner-border spinner-border-sm me-2 d-none" role="status" aria-hidden="true"></span>
+        <span>Cancel Subscription</span>
+    </a>
 
     </div>
 
@@ -67,9 +77,11 @@
 
         <br>
 
-        <a class="btn btn-success" type="button" href="{% url 'update-subscription' SubscriptionID %}"> <i
-                class="fa fa-angle-right" aria-hidden="true"></i>
-            &nbsp; Update Subscription</a>
+        <a id="updateButton" class="btn btn-success d-flex align-items-center justify-content-center" type="button"
+        href="{% url 'update-subscription' SubscriptionID %}">
+        <span class="spinner-border spinner-border-sm me-2 d-none" role="status" aria-hidden="true"></span>
+        <span>Update Subscription</span>
+</a>
 
     </div>
 
@@ -80,6 +92,25 @@
     {% endif %}
 
     <br>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#cancelButton, #updateButton').on('click', function (e) {
+                e.preventDefault(); // Prevent immediate navigation
+                const button = $(this);
+                button.find('.spinner-border').removeClass('d-none'); // Show spinner
+                button.find('span:last-child').addClass('d-none'); // Hide text
+                button.attr('disabled', true); // Disable the button
+    
+                // Simulate a delay or perform an actual asynchronous action
+                setTimeout(() => {
+                    window.location.href = button.attr('href'); // Navigate to the link
+                }, 2000); // Adjust the timeout as necessary
+            });
+        });
+    </script>
 
     {% endblock %}
 

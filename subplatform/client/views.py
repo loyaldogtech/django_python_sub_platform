@@ -59,7 +59,13 @@ def subscription_locked(request):
 @login_required(login_url='my_login')
 def subscription_plans(request):
 
-    return render(request, 'client/subscription-plans.html')
+    if not Subscription.objects.filter(user=request.user.id).exists():
+
+        return render(request, 'client/subscription-plans.html')
+
+    else:
+
+        return redirect('client-dashboard')
 
 @login_required(login_url='my_login')
 def account_management(request):
@@ -80,33 +86,46 @@ def account_management(request):
 def create_subscription(request, subID, plan):
 
     custom_user = CustomUser.objects.get(email=request.user)
-    firstName = custom_user.first_name
-    lastName = custom_user.last_name
-    fullName = firstName + ' ' + lastName
-    selected_sub_plan = plan
 
-    if selected_sub_plan == 'Standard':
-        amount = "4.99"
-    elif selected_sub_plan == 'Premium':
-        amount = "9.99"
+    if not Subscription.objects.filter(user=request.user).exists():
 
-    subscription = Subscription.objects.create(subscriber_name=fullName, subscription_plan=selected_sub_plan, subscription_cost=amount, user=request.user, paypal_subscription_id=subID, is_active=True)
+        firstName = custom_user.first_name
+        lastName = custom_user.last_name
+        fullName = firstName + ' ' + lastName
+        selected_sub_plan = plan
 
-    context = {'SubscriptionPlan': selected_sub_plan}
-    return render(request, 'client/create-subscription.html', context)
+        if selected_sub_plan == 'Standard':
+            amount = "4.99"
+        elif selected_sub_plan == 'Premium':
+            amount = "9.99"
+
+        subscription = Subscription.objects.create(subscriber_name=fullName, subscription_plan=selected_sub_plan, subscription_cost=amount, user=request.user, paypal_subscription_id=subID, is_active=True)
+
+        context = {'SubscriptionPlan': selected_sub_plan}
+        return render(request, 'client/create-subscription.html', context)
+    
+    else:
+
+        return redirect('client-dashboard')
 
 @login_required(login_url='my_login')
 def delete_subscription(request, subID):
 
+    try: 
+
     # Delete subscription from PayPal
-    access_token = get_access_token()
-    cancel_subscription_paypal(access_token, subID)
+        access_token = get_access_token()
+        cancel_subscription_paypal(access_token, subID)
 
-    # Delete subscription from Django (application side)
-    subscription = Subscription.objects.get(user=request.user, paypal_subscription_id=subID)
-    subscription.delete()
+        # Delete subscription from Django (application side)
+        subscription = Subscription.objects.get(user=request.user, paypal_subscription_id=subID)
+        subscription.delete()
 
-    return render(request, 'client/delete-subscription.html')
+        return render(request, 'client/delete-subscription.html')
+    
+    except:
+
+       return redirect('client-dashboard')
 
 @login_required(login_url='my_login')
 def update_subscription(request, subID):
